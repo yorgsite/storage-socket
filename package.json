@@ -1,0 +1,29 @@
+{
+  "name": "storage-socket",
+  "version": "1.0.0",
+  "description": "Communication socket between browser tabs using LocalStorage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yorgsite/storage-socket.git"
+  },
+  "keywords": [
+    "socket",
+    "localstorage",
+    "web",
+    "webpack",
+    "typescript",
+    "tabs",
+    "browser",
+    "messages"
+  ],
+  "author": "yorg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yorgsite/storage-socket/issues"
+  },
+  "homepage": "https://github.com/yorgsite/storage-socket#readme"
+}
