@@ -37,71 +37,78 @@ const socket = new StorageSocket(myGroup);
 
 ## API
 
+### StorageSocket
+
 ```javascript
 class StorageSocket{
 	/**
-	 * 
-	 * @param {string} group clients shared group
-	 */
+	* 
+	* @param {string} group clients shared group.
+	* Use different group names for separated information channels.
+	*/
 	constructor(group){/*...*/}
 
 	/**
-	 * readonly {int} current instance id
-	 */
+	* readonly {int} current instance id
+	*/
 	id
 
 	/**
-	 * readonly {number[]} all id list
-	 */
+	* readonly {number[]} all id list
+	*/
 	clients
 
 	/**
-	 * readonly {number[]} peers id list (clients excluding current instance)
-	 */
+	* readonly {number[]} peers id list (clients excluding current instance)
+	*/
 	peers
 
 	/**
-	 * readonly {boolean} Ready state
-	 */
+	* readonly {boolean} Ready state
+	*/
 	ready
 
 	/**
-	 * Socket events listening
-	 * @param {'ready'|'close'|'enter'|'leave'|'message'|'question'} type 
-	 * @param {function(msg: StorageMessage|any): void }} callback 
+	* Socket events listening
+	* @param {'ready'|'close'|'enter'|'leave'|'message'|'question'} type 
+	* ready : Triggered when the socket is ready
+	* close : Triggered when the socket closes
+	* enter : Triggered when a peer enters.
+	* enter : Triggered when a peer leaves.
+	* message : Triggered when a peer used 'send(yourId|"all",data)'.
+	* question : Triggered when a peer used 'ask(yourId|"all",data)'.
+	* @param {function(msg: StorageMessage|any): void }} callback 
 	*/
 	on(type,callback){/*...*/}
 
 	/**
-	 * 
-	 * @param {number|"all"} id : target peer id
-	 * @param {any} data 
-	 */
+	* sends a "message" event
+	* @param {number|"all"} id : target peer id ( ts must use sendAll(data) instead of send("all",data) )
+	* @param {any} data 
+	*/
 	send(id,data){/*...*/}
 
 	/**
-	 * 
-	 * @param {number|"all"} id 
-	 * @param {any} data 
-	 * @return Promise<any>
-	 */
+	* sends a "question" event 
+	* @param {number|"all"} id : target peer id ( ts must use askAll(data) instead of ask("all",data) )
+	* @param {any} data 
+	* @return Promise<any> : resolved when the question is answered
+	*/
 	ask(id,data){/*...*/}
-
-	// ------- for easyer ts mapping
+	
 	/**
-	 * sends to all peers
-	 * @param {any} data 
-	 */
+	* sends to all peers
+	* @param {any} data 
+	*/
 	sendAll(data){/*...*/}
 
 	/**
-	 * asks to all peers
-	 * @param {any} data 
-	 * @return Array<Promise<any>>
-	 */
+	* asks to all peers
+	* @param {any} data 
+	* @return Array<Promise<any>>
+	*/
 	askAll(data){/*...*/}
 }
-
 ```
 
 <hr>
