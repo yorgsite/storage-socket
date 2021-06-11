@@ -78,7 +78,7 @@ class StorageSocket{
 	* enter : When a peer leaves.
 	* message : When a peer used 'send(yourId|"all",data)'.
 	* question : When a peer used 'ask(yourId|"all",data)'.
-	* @param {function(msg: StorageMessage|any): void }} callback :
+	* @param {function(message: StorageMessage|any): void }} callback
 	*/
 	on(type,callback){/*...*/}
 
@@ -93,7 +93,7 @@ class StorageSocket{
 	* sends a "question" event 
 	* @param {number|"all"} id : target peer id ( ts must use askAll(data) instead of ask("all",data) )
 	* @param {any} data 
-	* @return Promise<any> : resolved when the question is answered
+	* @return Promise<any> : resolved when the question is answered ( using message.send(reponse) )
 	*/
 	ask(id,data){/*...*/}
 	
