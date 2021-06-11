@@ -1,5 +1,7 @@
 # storage-socket
-Communication socket between browser tabs using LocalStorage
+Communication socket between browser tabs using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">LocalStorage</a>.
+
+NB : Sharing tabs must share the same origin and protocol.
 
 Compatible js & ts
 
