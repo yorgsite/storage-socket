@@ -71,13 +71,14 @@ class StorageSocket{
 	/**
 	* Socket events listening
 	* @param {'ready'|'close'|'enter'|'leave'|'message'|'question'} type 
-	* ready : Triggered when the socket is ready
-	* close : Triggered when the socket closes
-	* enter : Triggered when a peer enters.
-	* enter : Triggered when a peer leaves.
-	* message : Triggered when a peer used 'send(yourId|"all",data)'.
-	* question : Triggered when a peer used 'ask(yourId|"all",data)'.
-	* @param {function(msg: StorageMessage|any): void }} callback 
+	* callback trigger types :
+	* ready : When the socket is ready
+	* close : When the socket closes
+	* enter : When a peer enters.
+	* enter : When a peer leaves.
+	* message : When a peer used 'send(yourId|"all",data)'.
+	* question : When a peer used 'ask(yourId|"all",data)'.
+	* @param {function(msg: StorageMessage|any): void }} callback :
 	*/
 	on(type,callback){/*...*/}
 
@@ -109,6 +110,40 @@ class StorageSocket{
 	*/
 	askAll(data){/*...*/}
 }
+```
+
+### StorageMessage
+
+```javascript
+
+	class StorageMessage extends MessageData{
+		/**
+		* {'ready'|'close'|'enter'|'leave'|'message'|'question'} the message type
+		*/
+		type:string;
+		/**
+		* {number} the sender id
+		*/
+		from:number;
+		/**
+		* {number} the target id
+		*/
+		to:number;
+		/**
+		* {any} the sent data
+		*/
+		data:any;
+		/**
+		* sends a message to the sender
+		* @param {any} data 
+		*/
+		send(data:any):void;
+		/**
+		* asks question to the sender. Does not work if message.type = 'question'.
+		* @param {any} data 
+		*/
+		ask(data:any):void;
+	}
 ```
 
 <hr>
