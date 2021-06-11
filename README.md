@@ -7,10 +7,23 @@ install :
 
 `npm install storage-socket`
 
+<hr>
+
+## Import 
+
+js
 
 ```javascript
-
 const {StorageSocket} = require('storage-socket');
+```
+ts
+```javascript
+import {StorageSocket} from "storage-socket";
+```
+
+### Use
+
+```javascript
 
 const myGroup='group 1';//
 
@@ -18,54 +31,51 @@ const socket = new StorageSocket(myGroup);
 
 ```
 
-### Methods
+<hr>
+
+## API
+
 ```javascript
 class StorageSocket{
 	/**
 	 * 
 	 * @param {string} group clients shared group
 	 */
-	constructor(group){// only one group instance per page
-		this._priv=sockets[group]=sockets[group]||new StorageSocket_priv(group);
-	}
-	/**
-	 * {int} current instance id
-	 */
-	get id(){
-		return this._priv.id;
-	}
+	constructor(group){/*...*/}
 
 	/**
-	 * {number[]} all id list
+	 * readonly {int} current instance id
 	 */
-	get clients(){
-		return this._priv.clients;
-	}
+	id
+
 	/**
-	 * {number[]} peers id list (clients excluding current instance)
+	 * readonly {number[]} all id list
 	 */
-	get peers(){
-		return this._priv.peers;
-	}
+	clients
+
 	/**
-	 * {boolean} Ready state
+	 * readonly {number[]} peers id list (clients excluding current instance)
 	 */
-	get ready(){
-		return this._priv.ready;
-	}
+	peers
+
+	/**
+	 * readonly {boolean} Ready state
+	 */
+	ready
+
 	/**
 	 * Socket events listening
 	 * @param {'ready'|'close'|'enter'|'leave'|'message'|'question'} type 
 	 * @param {function(msg: StorageMessage|any): void }} callback 
 	*/
-	on(type,callback){}
+	on(type,callback){/*...*/}
 
 	/**
 	 * 
 	 * @param {number|"all"} id : target peer id
 	 * @param {any} data 
 	 */
-	send(id,data){}
+	send(id,data){/*...*/}
 
 	/**
 	 * 
@@ -73,31 +83,46 @@ class StorageSocket{
 	 * @param {any} data 
 	 * @return Promise<any>
 	 */
-	ask(id,data){}
+	ask(id,data){/*...*/}
 
 	// ------- for easyer ts mapping
 	/**
 	 * sends to all peers
 	 * @param {any} data 
 	 */
-	sendAll(data){}
+	sendAll(data){/*...*/}
 
 	/**
 	 * asks to all peers
 	 * @param {any} data 
 	 * @return Array<Promise<any>>
 	 */
-	askAll(data){
-		return this._priv.askAll('message',data);
-	}
+	askAll(data){/*...*/}
 }
+
 ```
 
-`on(type:'ready'|'close'|'enter'|'leave'|'message'|'question',callback:{ (msg: StorageMessage|any): void }):void;`
+<hr>
 
-=======================
+## Test
+
+open several tabs containig this script :
+
+js
+```javascript
+const {test_storage_socket} = require('storage-socket');
+test_storage_socket();
+```
+ts
+```javascript
+import {test_storage_socket} from "storage-socket";
+test_storage_socket();
+```
+
+## Exemple :
 
 
+```javascript
 	let socket=new StorageSocket('ys2');
 	console.log('peers',socket.peers);
 	socket.on('message',msg=>{
@@ -116,3 +141,18 @@ class StorageSocket{
 		}
 		
 	});
+	
+	setTimeout(() => { 
+		socket.send('all','hello!'+Math.random());
+	}, 1000);
+	setTimeout(() => { 
+		
+		console.log('ss2 ask');
+		socket.askAll({txt:'OO R U ?'})
+		.map(p=>{
+			p.then(r=>{
+				console.log('reponse',r);
+			});
+		});
+	}, 3000);
+```
