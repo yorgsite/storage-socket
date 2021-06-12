@@ -75,7 +75,7 @@ class StorageSocket{
 	* ready : When the socket is ready
 	* close : When the socket closes
 	* enter : When a peer enters.
-	* enter : When a peer leaves.
+	* leave : When a peer leaves.
 	* message : When a peer used 'send(yourId|"all",data)'.
 	* question : When a peer used 'ask(yourId|"all",data)'.
 	* @param {function(message: StorageMessage|any): void }} callback
@@ -133,16 +133,20 @@ class StorageSocket{
 		* {any} the sent data
 		*/
 		data:any;
+
 		/**
 		* sends a message to the sender
 		* @param {any} data 
 		*/
-		send(data:any):void;
+		send(data){/*...*/}
+
 		/**
 		* asks question to the sender. Does not work if message.type = 'question'.
 		* @param {any} data 
+		* @return Promise<any> : resolved when the question is answered ( using message.send(reponse) )
 		*/
-		ask(data:any):void;
+		ask(data){/*...*/}
+
 	}
 ```
 
